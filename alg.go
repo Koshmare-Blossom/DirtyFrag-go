@@ -1,6 +1,6 @@
 package main
 
-// AF_ALG helpers for pcbc(fcrypt) — used by the rxrpc path to compute
+// AF_ALG helpers for pcbc(fcrypt) - used by the rxrpc path to compute
 // csum_iv and the wire cksum without re-implementing PCBC in userspace.
 
 import (

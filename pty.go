@@ -1,6 +1,6 @@
 package main
 
-// PTY bridge — spawns /usr/bin/su inside a fresh PTY and bridges
+// PTY bridge - spawns /usr/bin/su inside a fresh PTY and bridges
 // the user's tty to it. Handles both patched-su and patched-passwd cases.
 
 import (

